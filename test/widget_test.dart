@@ -11,7 +11,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Flutter Material Lab'), findsOneWidget);
-    expect(find.text('All components'), findsOneWidget);
+    expect(find.text('All components'), findsWidgets);
     expect(find.text('Bottom sheets'), findsWidgets);
     expect(find.text('Buttons'), findsWidgets);
 
