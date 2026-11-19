@@ -510,6 +510,36 @@ class _LabHomePageState extends State<LabHomePage> {
           ],
         ),
         actions: [
+          if (width >= 940)
+            SizedBox(
+              width: 260,
+              child: Center(
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() => _query = value),
+                  decoration: InputDecoration(
+                    hintText: 'Search components',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: _query.isEmpty
+                        ? null
+                        : IconButton(
+                            tooltip: 'Clear search',
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                            icon: const Icon(Icons.close),
+                          ),
+                    isDense: true,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           PopupMenuButton<Color>(
             tooltip: 'Change seed color',
             icon: const Icon(Icons.palette_outlined),
@@ -1107,6 +1137,7 @@ class _TextFieldPlaygroundState extends State<TextFieldPlayground> {
       children: [
         TextField(
           controller: _controller,
+          onChanged: (_) => setState(() {}),
           obscureText: _obscure,
           decoration: InputDecoration(
             labelText: 'Text field label',
