@@ -629,91 +629,118 @@ class _LabHomePageState extends State<LabHomePage> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 22, 20, 48),
       children: [
+        if (showSearch)
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1120),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() => _query = value),
+                  decoration: InputDecoration(
+                    hintText: 'Search components',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: _query.isEmpty
+                        ? null
+                        : IconButton(
+                            tooltip: 'Clear search',
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                            icon: const Icon(Icons.close),
+                          ),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1120),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (showSearch) ...[
-                  TextField(
-                    controller: _searchController,
-                    onChanged: (value) => setState(() => _query = value),
-                    decoration: InputDecoration(
-                      hintText: 'Search components',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: _query.isEmpty
-                          ? null
-                          : IconButton(
-                              tooltip: 'Clear search',
-                              onPressed: () {
-                                _searchController.clear();
-                                setState(() => _query = '');
-                              },
-                              icon: const Icon(Icons.close),
-                            ),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _query.isEmpty ? selectedLabel : 'Search results',
+                    style: theme.textTheme.headlineMedium,
                   ),
-                  const SizedBox(height: 24),
-                ],
-                Text(
-                  _query.isEmpty ? selectedLabel : 'Search results',
-                  style: theme.textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  _query.isEmpty
-                      ? 'Interactive examples built with Flutter’s official material_ui package.'
-                      : 'Components matching “' + _query + '”.',
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 22),
-                if (examples.isEmpty)
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(28),
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.search_off,
-                            size: 36,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                          const SizedBox(height: 12),
-                          Text('No components found',
-                              style: theme.textTheme.titleMedium),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Try another search term or choose a different category.',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                else
-                  for (final example in examples)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 18),
-                      child: ComponentShowcase(example: example),
-                    ),
-                const SizedBox(height: 18),
-                Center(
-                  child: Text(
-                    'Flutter Material Lab · material_ui',
-                    style: theme.textTheme.labelMedium?.copyWith(
+                  const SizedBox(height: 6),
+                  Text(
+                    _query.isEmpty
+                        ? 'Interactive examples built with Flutter’s official material_ui package.'
+                        : 'Components matching “' + _query + '”.',
+                    style: theme.textTheme.bodyLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        if (examples.isEmpty)
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1120),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(28),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.search_off,
+                        size: 36,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'No components found',
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'Try another search term or choose a different category.',
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
+            ),
+          )
+        else
+          for (final example in examples)
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1120),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  child: ComponentShowcase(example: example),
+                ),
+              ),
+            ),
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1120),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Center(
+                child: Text(
+                  'Flutter Material Lab · material_ui',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
