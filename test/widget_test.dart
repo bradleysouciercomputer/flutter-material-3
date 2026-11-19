@@ -5,7 +5,7 @@ void main() {
   testWidgets('renders the component lab and its first examples',
       (tester) async {
     await tester.pumpWidget(const MaterialLabApp());
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.text('Flutter Material Lab'), findsOneWidget);
     expect(find.text('All components'), findsWidgets);
