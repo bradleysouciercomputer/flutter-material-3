@@ -45,7 +45,7 @@ class _MaterialLabAppState extends State<MaterialLabApp> {
         ),
       ),
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      supportedLocales: GlobalMaterialLocalizations.supportedLocales,
+      supportedLocales: const [Locale('en', 'US')],
       home: LabHomePage(
         darkMode: _darkMode,
         seedColor: _seedColor,
