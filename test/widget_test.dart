@@ -4,9 +4,6 @@ import 'package:flutter_material_lab/main.dart';
 void main() {
   testWidgets('renders the component lab and its first examples',
       (tester) async {
-    tester.view.physicalSize = const Size(1280, 1200);
-    tester.view.devicePixelRatio = 1;
-
     await tester.pumpWidget(const MaterialLabApp());
     await tester.pumpAndSettle();
 
@@ -15,7 +12,5 @@ void main() {
     expect(find.text('Bottom sheets'), findsWidgets);
     expect(find.text('Buttons'), findsWidgets);
 
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
   });
 }
